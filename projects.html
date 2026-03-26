@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI/UX Projects — Reuel Varghese Joy</title>
+  <meta name="description" content="UI/UX Design projects by Reuel Varghese Joy — Personal Finance App, Wedding Planner Website and more. Designed in Figma." />
+  <link rel="canonical" href="https://rvj1.github.io/Website/projects.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #080b0f;
+      --bg2:     #0e1318;
+      --bg3:     #141b22;
+      --accent:  #00d4ff;
+      --text:    #f0f4f8;
+      --muted:   #6b8199;
+      --border:  rgba(0,212,255,0.12);
+      --glow:    rgba(0,212,255,0.18);
+      --font-head: 'Orbitron', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Grid bg */
+    .page-grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Cursor */
+    .cursor { width:12px;height:12px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transition:transform 0.15s ease;transform:translate(-50%,-50%); }
+    .cursor-ring { width:36px;height:36px;border:1px solid rgba(0,212,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transition:transform 0.35s cubic-bezier(0.23,1,0.32,1),width 0.3s,height 0.3s;transform:translate(-50%,-50%); }
+    @media (pointer:coarse) { .cursor,.cursor-ring { display:none; } }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(8,11,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+    .nav-back::before { content: '←'; font-size: 1rem; }
+
+    /* Page header */
+    .page-header {
+      padding: 10rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+    .page-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .page-title span { color: var(--accent); }
+    .page-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-top: 1rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    /* Projects grid */
+    .projects-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Project card */
+    .project-card {
+      background: rgba(14,19,24,0.85);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+      transform-style: preserve-3d;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s ease forwards;
+      text-decoration: none;
+      display: block;
+    }
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.07), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .project-card:hover {
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 40px var(--glow);
+    }
+    .project-card:hover::after { opacity: 1; }
+
+    /* Thumb */
+    .project-thumb {
+      width: 100%;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .thumb-finance { background: linear-gradient(135deg, #0a1628, #0e2040, #071020); }
+    .thumb-wedding { background: linear-gradient(135deg, #1a0e1a, #2d1a2d, #100a10); }
+    .thumb-mockup { position:absolute;inset:0;display:flex;align-items:center;justify-content:center; }
+
+    .finance-mockup {
+      width: 140px;
+      background: #0d1f3c;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(0,212,255,0.2);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      transition: transform 0.4s;
+    }
+    .project-card:hover .finance-mockup { transform: translateY(-6px) scale(1.04); }
+    .fm-bar { height:6px;border-radius:3px;margin-bottom:6px; }
+    .fm-row { display:flex;gap:4px;margin-bottom:5px; }
+    .fm-pill { height:5px;border-radius:2px;flex:1; }
+
+    .wedding-mockup {
+      width: 140px;
+      background: #1e0e2e;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(180,120,255,0.2);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      transition: transform 0.4s;
+    }
+    .project-card:hover .wedding-mockup { transform: translateY(-6px) scale(1.04); }
+    .wm-title { height:8px;border-radius:3px;margin-bottom:8px;background:linear-gradient(90deg,#c084fc,#e879f9); }
+    .wm-text { height:4px;border-radius:2px;margin-bottom:4px; }
+    .wm-card { height:44px;border-radius:10px;background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2);margin-top:8px; }
+
+    /* Card info */
+    .project-info { padding: 1.8rem; }
+    .project-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .tag-design { background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2); }
+    .tag-wedding { background:rgba(192,132,252,0.1);color:#c084fc;border:1px solid rgba(192,132,252,0.2); }
+    .project-name {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    .project-desc { font-size:0.88rem;color:var(--muted);line-height:1.7; }
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .tool-chips { display:flex;gap:0.4rem;flex-wrap:wrap; }
+    .tool-chip {
+      padding: 0.2rem 0.6rem;
+      background: var(--bg3);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .open-figma {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .open-figma:hover { background: var(--accent); color: var(--bg); }
+
+    /* Coming soon badge */
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,180,0,0.08);
+      color: #ffb400;
+      border: 1px solid rgba(255,180,0,0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity:0;transform:translateY(30px); }
+      to   { opacity:1;transform:translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) { nav { padding: 1rem 1.5rem; } }
+    @media (max-width: 600px) {
+      .projects-container { grid-template-columns: 1fr; padding: 1rem 1.2rem 4rem; }
+      .page-header { padding: 8rem 1.2rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="page-grid-bg"></div>
+
+  <nav>
+    <div class="nav-logo">RVJ<span>.</span></div>
+    <a href="index.html" class="nav-back">Back to Portfolio</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-label">Selected Work</div>
+    <h1 class="page-title">UI/UX <span>Projects</span></h1>
+    <p class="page-sub">Click any project to view the full Figma design.</p>
+  </div>
+
+  <div class="projects-container">
+
+    <!-- Project 1 - Creative Agency Website -->
+    <a class="project-card" href="https://www.figma.com/design/arWk30vyZYwMeL1bss8yB5/Project-1?node-id=15-444&t=pG6VxCODH2RdBngB-1" target="_blank">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0a1a0f,#0e2d1a,#051208);">
+        <div class="thumb-mockup">
+          <div style="width:140px;background:#0a1f10;border-radius:16px;padding:14px;border:1px solid rgba(0,255,120,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.6);transition:transform 0.4s;">
+            <div style="height:8px;border-radius:4px;background:linear-gradient(90deg,#00ff78,#00cc60);width:75%;margin-bottom:8px"></div>
+            <div style="height:4px;border-radius:2px;background:rgba(0,255,120,0.2);margin-bottom:5px"></div>
+            <div style="height:4px;border-radius:2px;background:rgba(0,255,120,0.12);margin-bottom:10px;width:60%"></div>
+            <div style="display:flex;gap:5px;margin-bottom:6px">
+              <div style="flex:1;height:36px;border-radius:8px;background:rgba(0,255,120,0.07);border:1px solid rgba(0,255,120,0.15)"></div>
+              <div style="flex:1;height:36px;border-radius:8px;background:rgba(0,255,120,0.12);border:1px solid rgba(0,255,120,0.25)"></div>
+            </div>
+            <div style="height:18px;border-radius:5px;background:rgba(0,255,120,0.06);border:1px solid rgba(0,255,120,0.1)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-tag tag-design">UI/UX Design</div>
+        <div class="project-name">Creative Agency Website</div>
+        <p class="project-desc">A website designed for a creative agency. Bold layout, clean typography, and a strong visual identity built to make an impression.</p>
+        <div class="project-footer">
+          <div class="tool-chips">
+            <span class="tool-chip">Figma</span>
+            <span class="tool-chip">Web Design</span>
+            <span class="tool-chip">Personal Project</span>
+          </div>
+          <span class="open-figma">Open ↗</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Project 2 - Wedding Agency Website -->
+    <a class="project-card" href="https://www.figma.com/design/K9tBqCTxW900mcNvwJL8z1/Project-2?node-id=33-24&t=sSDV31I726XnR7qQ-1" target="_blank">
+      <div class="project-thumb thumb-wedding">
+        <div class="thumb-mockup">
+          <div class="wedding-mockup">
+            <div class="wm-title"></div>
+            <div class="wm-text" style="background:rgba(192,132,252,0.2);width:90%"></div>
+            <div class="wm-text" style="background:rgba(192,132,252,0.12);width:70%"></div>
+            <div class="wm-card"></div>
+            <div style="margin-top:6px;display:flex;gap:5px">
+              <div style="flex:1;height:28px;border-radius:6px;background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2)"></div>
+              <div style="flex:1;height:28px;border-radius:6px;background:rgba(232,121,249,0.15);border:1px solid rgba(232,121,249,0.3)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-tag tag-wedding">UI/UX Design</div>
+        <div class="project-name">Wedding Agency Website</div>
+        <p class="project-desc">An elegant wedding agency platform designed in Figma, balancing romance and utility. Built for couples who want a stress-free planning experience.</p>
+        <div class="project-footer">
+          <div class="tool-chips">
+            <span class="tool-chip">Figma</span>
+            <span class="tool-chip">Web Design</span>
+            <span class="tool-chip">Prototyping</span>
+          </div>
+          <span class="open-figma">Open ↗</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Project 3 - Finance App -->
+    <a class="project-card" href="https://www.figma.com/design/ORcShp5RINHfPEUHmYawjS/Project-3?node-id=2-138&t=SAX1gEvVxyC24QTu-1" target="_blank">
+      <div class="project-thumb thumb-finance">
+        <div class="thumb-mockup">
+          <div class="finance-mockup">
+            <div class="fm-bar" style="background:linear-gradient(90deg,#00d4ff,#0099cc);width:70%"></div>
+            <div class="fm-bar" style="background:rgba(0,212,255,0.15);width:100%"></div>
+            <div class="fm-row">
+              <div class="fm-pill" style="background:rgba(0,212,255,0.25)"></div>
+              <div class="fm-pill" style="background:rgba(0,212,255,0.1)"></div>
+            </div>
+            <div class="fm-bar" style="background:rgba(0,212,255,0.08);width:100%;height:28px;border-radius:6px"></div>
+            <div style="margin-top:6px"><div class="fm-bar" style="background:rgba(0,212,255,0.15);width:100%;height:22px;border-radius:6px"></div></div>
+            <div style="margin-top:5px"><div class="fm-bar" style="background:rgba(0,212,255,0.08);width:100%;height:22px;border-radius:6px"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-tag tag-design">UI/UX Design</div>
+        <div class="project-name">Personal Finance App</div>
+        <p class="project-desc">A clean, intuitive finance tracker designed in Figma. Features expense tracking, budget planning, goal setting, and a Leaderboard to gamify saving habits.</p>
+        <div class="project-footer">
+          <div class="tool-chips">
+            <span class="tool-chip">Figma</span>
+            <span class="tool-chip">Mobile App</span>
+            <span class="tool-chip">Prototyping</span>
+          </div>
+          <span class="open-figma">Open ↗</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Project 4 - Personal Portfolio Design -->
+    <a class="project-card" href="https://www.figma.com/design/3SsbBz1z0tzeLYfBsaauW5/personal-webiste?node-id=0-1&t=7irUdYJhnspUYQ2g-1" target="_blank">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0f0a1a,#1a0f2e,#080510);">
+        <div class="thumb-mockup">
+          <div style="width:140px;background:#120a22;border-radius:16px;padding:14px;border:1px solid rgba(120,80,255,0.25);box-shadow:0 12px 40px rgba(0,0,0,0.6);transition:transform 0.4s;">
+            <div style="height:8px;border-radius:4px;background:linear-gradient(90deg,#a855f7,#7c3aed);width:50%;margin-bottom:8px"></div>
+            <div style="height:40px;border-radius:8px;background:rgba(120,80,255,0.1);border:1px solid rgba(120,80,255,0.2);margin-bottom:6px;display:flex;align-items:center;justify-content:center;">
+              <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);opacity:0.7"></div>
+            </div>
+            <div style="height:4px;border-radius:2px;background:rgba(120,80,255,0.2);margin-bottom:4px"></div>
+            <div style="height:4px;border-radius:2px;background:rgba(120,80,255,0.12);margin-bottom:4px;width:70%"></div>
+            <div style="display:flex;gap:4px;margin-top:6px">
+              <div style="flex:1;height:20px;border-radius:4px;background:rgba(120,80,255,0.15)"></div>
+              <div style="flex:1;height:20px;border-radius:4px;background:rgba(120,80,255,0.08)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-tag" style="background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.2);">UI/UX Design</div>
+        <div class="project-name">Personal Portfolio Design</div>
+        <p class="project-desc">My first attempt at designing a personal portfolio in Figma. A look into where the design journey started and how the thinking has evolved.</p>
+        <div class="project-footer">
+          <div class="tool-chips">
+            <span class="tool-chip">Figma</span>
+            <span class="tool-chip">Portfolio</span>
+            <span class="tool-chip">Web Design</span>
+          </div>
+          <span class="open-figma">Open ↗</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a,.project-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='var(--accent)';cursor.style.transform='translate(-50%,-50%) scale(1.5)'; });
+      el.addEventListener('mouseleave', () => { ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(0,212,255,0.5)';cursor.style.transform='translate(-50%,-50%) scale(1)'; });
+    });
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-8px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) scale(1.01)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  </script>
+</body>
+</html>
